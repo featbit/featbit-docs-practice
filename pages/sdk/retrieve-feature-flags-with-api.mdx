@@ -1,0 +1,147 @@
+import { Callout } from 'nextra/components'
+
+# Retrieve feature flags with API
+
+The Evaluation Server offers two APIs that allow you to retrieve feature flags for both client-side and server-side sdks, specific to the desired environment.
+
+The differences between client side and server side SDKs are:
+
+* Client side SDK is for single user but Server side SDK is for multiple users
+* Client side SDK relies on the Evaluation Server to evaluate all the flags while Server side SDK evaluates the flags locally
+
+<Callout type="info" emoji="ℹ️">
+Please note that you need to replace `{Host}` in the API requests with the appropriate host URL for your environment. `{Host}` can be the evaluation server host or the FeatBit Agent host, both of them provides the same API.
+</Callout>
+
+## Client Side
+
+For client-side requests, provide the client environment secret in the `Authorization` header.
+
+**Request**
+
+```bash
+curl -X POST {Host}/api/public/sdk/client/latest-all \
+-H 'Content-Type: application/json' \
+-H 'Authorization: client-env-secret' \
+-d '{
+    "keyId": "bot-id",
+    "name": "bot",
+    "customizedProperties": [
+        {
+            "name": "level",
+            "value": "high"
+        },
+        {
+            "name": "localtion",
+            "value": "us"
+        }
+    ]
+}'
+```
+
+**Response**
+
+```json
+[
+    {
+       "id":"hello-world",
+       "variation":"true",
+       "variationType":"boolean"
+    }
+]
+```
+
+## Server Side
+
+For server-side requests, provide the server environment secret in the `Authorization` header.
+
+**Request**
+
+```bash
+curl -H "Authorization: server-env-secret" {Host}/api/public/sdk/server/latest-all
+```
+
+**Response**
+
+```json
+{
+   "messageType":"data-sync",
+   "data":{
+      "eventType":"full",
+      "featureFlags":[
+         {
+            "envId":"1331554d-98c4-41fe-ade4-68e6f5eeb54a",
+            "name":"hello world",
+            "key":"hello-world",
+            "variationType":"boolean",
+            "variations":[
+               {
+                  "id":"bbe8f444-090e-4a3b-99fa-b487bab424aa",
+                  "value":"true"
+               },
+               {
+                  "id":"cf8f9626-0d6f-4d05-a98f-8c3a50c85d0f",
+                  "value":"false"
+               }
+            ],
+            "targetUsers":[
+               
+            ],
+            "rules":[
+               
+            ],
+            "isEnabled":true,
+            "disabledVariationId":"cf8f9626-0d6f-4d05-a98f-8c3a50c85d0f",
+            "fallthrough":{
+               "dispatchKey":null,
+               "includedInExpt":true,
+               "variations":[
+                  {
+                     "id":"bbe8f444-090e-4a3b-99fa-b487bab424aa",
+                     "rollout":[
+                        0,
+                        1
+                     ],
+                     "exptRollout":1
+                  }
+               ]
+            },
+            "exptIncludeAllTargets":true,
+            "tags":[
+               
+            ],
+            "isArchived":false,
+            "disabledVariation":{
+               "id":"cf8f9626-0d6f-4d05-a98f-8c3a50c85d0f",
+               "value":"false"
+            },
+            "creatorId":"b58fa8fd-eca2-460a-ab0f-e7758dbcec6a",
+            "updatorId":"b58fa8fd-eca2-460a-ab0f-e7758dbcec6a",
+            "createdAt":"2023-03-16T09:11:23.739Z",
+            "updatedAt":"2023-03-16T09:11:26.0465535Z",
+            "id":"4daca70f-86ae-4468-aee8-afc700977202"
+         }
+      ],
+      "segments":[
+         {
+            "envId":"1331554d-98c4-41fe-ade4-68e6f5eeb54a",
+            "name":"beta users",
+            "description":"this is a segment for beta users",
+            "included":[
+               
+            ],
+            "excluded":[
+               
+            ],
+            "rules":[
+               
+            ],
+            "isArchived":false,
+            "createdAt":"2023-03-16T09:18:21.1317917Z",
+            "updatedAt":"2023-03-16T09:18:21.1317248Z",
+            "id":"b2b91bbe-5d54-4d8a-882f-afc700995b23"
+         }
+      ]
+   }
+}
+```

@@ -1,0 +1,6 @@
+{
+  "opentelemetry": "Open Telemetry",
+  "datadog": "DataDog",
+  "newrelic": "New Relic One",
+  "grafana": "Grafana"
+}

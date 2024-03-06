@@ -1,0 +1,62 @@
+# Open Telemetry
+
+## Overview
+
+FeatBit's backend services, including the Api, Evaluation-Server, and Data Analytic Service, are instrumented with
+OpenTelemetry to publish observability metrics, traces, and logs, enabling you to gain insights into FeatBit's
+performance and behavior.
+
+## Configuration
+
+### Basic Configuration
+
+To enable OpenTelemetry, the following environment variables need to be set for each service:
+
+- `ENABLE_OPENTELEMETRY`: Tells the app that OpenTelemetry is enabled. Set to `true` to enable OpenTelemetry.
+- `OTEL_SERVICE_NAME`: This is used to identify the service in the observability backends. Set to the name of the
+  service. For example, `featbit-api` for the Api service, `featbit-els` for the Evaluation-Server service,
+  and `featbit-das` for the Data Analytic service.
+- `OTEL_EXPORTER_OTLP_ENDPOINT`: Sets the **grpc endpoint** of the OpenTelemetry exporter. For
+  example: `http://otel-collector:4317`.
+
+### Additional Configuration
+
+FeatBit's Api and Evaluation-Server services are written in .NET/C#, are instrumented with
+using [.NET Automatic Instrumentation](https://opentelemetry.io/docs/languages/net/automatic/). For a complete list of
+supported environment variables, refer to
+the [documentation](https://github.com/open-telemetry/opentelemetry-dotnet-instrumentation/blob/main/docs/config.md).
+
+The Data Analytic service, written in Python, is instrumented using
+the [Python Automatic Instrumentation](https://opentelemetry.io/docs/languages/python/automatic/). For a complete list
+of supported environment variables, refer to
+the [documentation](https://opentelemetry-python.readthedocs.io/en/latest/sdk/environment_variables.html).
+
+## A Ready-To-Run Example
+
+We have a ready-to-run example for you to try out OpenTelemetry. In this example, we
+use [Seq](https://docs.datalust.co/docs/getting-started-with-docker) for
+logs, [Jaeger](https://github.com/jaegertracing/jaeger) for traces,
+and [Prometheus](https://github.com/prometheus/prometheus) for metrics.
+
+Follow the steps below to run the example:
+
+```shell
+# Clone the repository
+git clone https://github.com/featbit/featbit.git
+cd featbit
+
+# Build the test images
+docker compose --project-directory .  -f ./docker/composes/docker-compose-dev.yml build
+
+# Start OTEL collector, Seq, Jaeger, and Prometheus
+docker compose --project-directory .  -f ./docker/composes/docker-compose-otel-collector-contrib.yml up -d
+
+# Start FeatBit services
+docker compose --project-directory .  -f ./docker/composes/docker-compose-otel.yml up -d
+```
+
+Use FeatBit as normal, create feature flags, evaluate flags, view flag insights, etc. Then
+
+- View logs in Seq at http://localhost:8082
+- View traces in Jaeger at http://localhost:16686
+- View metrics in Prometheus at http://localhost:9090

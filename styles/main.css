@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* :is([dir=ltr] .ltr\:nx-pl-3) {
+    padding-left: .1rem;
+}
+:is([dir=ltr] .ltr\:nx-ml-3) {
+    margin-left: .10rem;
+} */
+
+@media (min-width: 768px) {
+    .md\:nx-w-64 {
+        width: 18rem;
+    }
+}
+

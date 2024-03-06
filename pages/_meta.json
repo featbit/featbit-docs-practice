@@ -1,0 +1,10 @@
+{
+  "index": "Practices Overview",
+  "deployment-and-release": "Depolyment & Release",
+  "support": {
+    "title": "Support ↗",
+    "type": "page",
+    "href": "https://dashboard.featbit.co",
+    "newWindow": true
+  }
+}
