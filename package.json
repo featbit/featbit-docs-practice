@@ -1,7 +1,7 @@
 {
   "name": "featbit-docs",
   "version": "0.0.1",
-  "description": "FeatBit docs",
+  "description": "FeatBit Practices",
   "scripts": {
     "dev": "next dev",
     "build": "next build",

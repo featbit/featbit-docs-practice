@@ -20,7 +20,7 @@ const config: DocsThemeConfig = {
     <>
       <LogoComponent />
       <h1 style={{ marginLeft: '12px', fontWeight: 800, fontSize: '24px',  lineHeight: '33px'}}>
-        FeatBit Docs
+        FeatBit Practices
       </h1>
     </>
   ),

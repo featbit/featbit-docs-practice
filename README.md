@@ -1,4 +1,4 @@
-# FeatBit Docs
+# FeatBit Practices
 
 This is the doc repo for [FeatBit](https://www.featbit.co).
 
