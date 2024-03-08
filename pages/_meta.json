@@ -1,8 +1,10 @@
 {
   "index": "Practices Overview",
-  "deployment-and-release": "Depolyment & Release",
+  "maintenance-practice": "FeatBit Maintenance Practices",
+  "continuous-delivery-practice": "Continuous Delivery Practices",
+  "faq-for-tech-leads-n-cto": "FAQ for Team Leads",
   "support": {
-    "title": "Support ↗",
+    "title": "Support & Pricing ↗",
     "type": "page",
     "href": "https://dashboard.featbit.co",
     "newWindow": true
