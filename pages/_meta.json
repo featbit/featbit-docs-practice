@@ -3,8 +3,20 @@
   "maintenance-practice": "Maintenance",
   "continuous-delivery-practice": "Delivery Performance",
   "faq-for-tech-leads-n-cto": "FAQ for Team Leads",
+  "home": {
+    "title": "Home",
+    "type": "page",
+    "href": "https://www.featbit.co",
+    "newWindow": true
+  },
+  "docs": {
+    "title": "Docs",
+    "type": "page",
+    "href": "https://docs.featbit.co",
+    "newWindow": true
+  },
   "support": {
-    "title": "Support & Pricing ↗",
+    "title": "Support & Pricing",
     "type": "page",
     "href": "https://dashboard.featbit.co",
     "newWindow": true
