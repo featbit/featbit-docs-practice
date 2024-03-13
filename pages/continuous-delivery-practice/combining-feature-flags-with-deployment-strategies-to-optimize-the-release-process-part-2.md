@@ -16,8 +16,40 @@ In this article, we will discuss how to make features consistent across environm
 
 ## Check if some feature flags missed in current cd pipeline
 
-1. Use FeatBit Rest APIs to get all feature flags in the two different environments.
-2. Compare the feature flags in the two different environments. You can write a program or using an LLM directly.
+This chapter will show you how to use FeatBit Rest APIs to get all feature flags in the two different environments and compare the feature flags in the two different environments. Here're the steps:
+
+1. Create a API token to access FeatBit's Rest APIs.
+2. Get all feature flags with the API token in the two different environments.
+3. Compare the feature flags in the two different environments. 
+   3.1 Method one, write your own program to compare the feature flags.
+   3.2 Method two, use AI to compare the feature flags.
+4. Compare the feature flags with the release plan.
+   4.1 Method one, write your own program to compare the feature flags with the release plan.
+   4.2 Method two, use AI to compare the feature flags with the release plan.
 
 ### Create a API token in FeatBit
+
+1. Go to the FeatBit portal and login. Click on menu item **Access Token** under **Integration** to go to the access token page.
+2. In "Access Token" page, click on the button "Add" to create a new access token, name it as "Pipeline Token".
+
+![](../continuous-delivery-practice/assets/optimize-release-process/environment-consistency/create-access-token.png)
+
+3. Save the token in a secure place. You will not be able to see it again.
+
+### Get all feature flags with the API token in the two different environments
+
+1. Use the API token to get all feature flags in the testing environment.
+
+
+api-MDMwMDE3MDIzMDE3MQihrBYAofdU-nZ_jhQlruyA
+
+
+
+
+## Adjust your Release Description with your Deployment.
+
+1. Use ChatGpt or LLMs to ajustment your release description with your deployment.
+2.
+
+
 
