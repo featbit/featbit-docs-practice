@@ -1,4 +1,4 @@
-# Combining Feature Flags with Deployment Strategies to Optimize the Release Process - Part 2 - Create a Release Plan
+# Combining Feature Flags with Deployment Strategies to Optimize the Release Process - Part 3 - Making Features Consistent Across Environments
 
 Your team may deploy frequently per day or per week without fixed scheduled deployment date and time. Your team may also deploy once per bi-weekly or monthly with a fixed date and time. 
 
