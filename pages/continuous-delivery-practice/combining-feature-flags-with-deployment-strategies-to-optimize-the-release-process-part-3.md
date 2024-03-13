@@ -2,17 +2,32 @@
 
 Your team may deploy frequently per day or per week without fixed scheduled deployment date and time. Your team may also deploy once per bi-weekly or monthly with a fixed date and time. 
 
-Regardless of the frequency, your team may make mistake to deploy a feature to production environment without creating it before deployment. This mistake may cause a production issue. To avoid this mistake, you can use a feature flag examination gate during the pipeline.
+Regardless of the frequency, your team may make mistake to deploy a feature to production environment without creating it before deployment. This mistake may cause a production issue. To avoid this mistake, you can use a feature flag examination gate in the pipeline. 
+
+Here're some points that you can check in the pipeline:
 
 1. Check if some feature flags missed in current cd pipeline. "Miss" means for example:
-   a. The feature flag appears in the testing environment pipeline but not in the production environment pipeline.
-   b. The configuration of feature flag is not consistent between the testing environment pipeline and the production environment pipeline.
-   c. If you have release plan, try to compare with the plan and the feature flags in the pipeline.
-2. Check if the new feature flag is disabled that won't expose new feature to public immediately after deployment. 
+   - The feature flag appears in the testing environment pipeline but not in the production environment pipeline.
+   - The configuration of feature flag is not consistent between the testing environment pipeline and the production environment pipeline.
+2. Check if your deployment pipeline adjusts with the product release plan defined by product/project managers.
+   - Check if the new feature flag is disabled that won't expose new feature to public immediately after deployment. 
+   - Check if the feature flag has configured schedule to enable or disable the feature.
 3. Check if all feature flags appear in the code are defined in the feature flag management system.
-4. If last two steps didn't discover all potential risk, we propose also that when writing a new feature flag, define a default value. Normally we give it a default value of `false` to avoid the feature being enabled by mistake. Or other value that will not enable the new version or configuration of feature. 
 
-In this article, we will discuss how to make features consistent across environments by using FeatBit.
+In this article, we will discuss how to make features consistent across environments by using FeatBit step by step.
+
+
+```
+
+这里需要有张图，
+
+Step 1: Check if some feature flags missed in current cd pipeline
+
+Step 2: Adjust your Release Plan with your Deployment
+
+Step 3: Check if all feature flags appear in the code are defined in the feature flag management system
+
+```
 
 ## Check if some feature flags missed in current cd pipeline
 
@@ -38,18 +53,50 @@ This chapter will show you how to use FeatBit Rest APIs to get all feature flags
 
 ### Get all feature flags with the API token in the two different environments
 
-1. Use the API token to get all feature flags in the testing environment.
+You can use the API `https://{FeatBit API Service Url}/api/v1/envs/{envId}/feature-flags` to get all feature flags configuration in the testing environment. (For FeatBit Rest API, please check documentation [Using FeatBit REST API](https://docs.featbit.co/api-docs/using-featbit-rest-api))
+
+![](../continuous-delivery-practice/assets/optimize-release-process/environment-consistency/postman-get-environment-all-feature-flag.png)
+
+As image shown below, you can use Postman to get all feature flags in one environment. For comparing, we need to call the API twice to get all feature flags in the two different environments.
+
+### Check if feature flags between two environments are consistent
+
+Once we got two sets of feature flags, we can compare them to see if they are consistent. We will compare:
+
+1. If the feature flag key existed in one environment but not in the other.
+2. If the feature flags in two environment of same key name have the same variation type and value.
+3. If the configuration of each feature flag in two environments is consistent.
+
+The first two points can be done by writing a program to compare the feature flags. You can alert a warning when the feature flag is missed in one environment. Human can check if it's a normal case or a mistake.
+
+The third point is various depends on the strategy. For example, the configuration in testing environment may already enabled the feature for testing purpose, but the configuration in production environment should be disabled. So in this case, we need to check your release plan to see if the configuration is consistent with the plan, see next chapter.
+
+Here's a sample code to compare the feature flags in two environments for the first two points:
+
+```csharp
 
 
-api-MDMwMDE3MDIzMDE3MQihrBYAofdU-nZ_jhQlruyA
 
 
 
 
-## Adjust your Release Description with your Deployment.
+```
 
-1. Use ChatGpt or LLMs to ajustment your release description with your deployment.
-2.
+You can find my sample code in my GitHub repository [here]().
+
+### Define default value when coding a feature flag
+
+If the deployment piepline didn't discover potential risk, we propose also that when writing a new feature flag, define a default value. Normally we give it a default value of `false` to avoid the feature being enabled by mistake. Or other value that will not enable the new version or configuration of feature. 
+
+## Adjust your Release Plan with your Deployment.
+
+To compare with the plan, today we can use AI to compare the feature flags with the release plan. The AI can help us to find out if the feature flags in the deployment pipeline are consistent with the release plan.
+
+## Check if all feature flags appear in the code are defined in the feature flag management system.
+
+## Put your examination gate in the pipeline
+
+
 
 
 
