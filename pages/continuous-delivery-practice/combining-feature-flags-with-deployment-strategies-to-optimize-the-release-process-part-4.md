@@ -1,4 +1,4 @@
-# Combining Feature Flags with Deployment Strategies to Optimize the Release Process - Part 3 - Making Features Consistent Across Environments
+# Combining Feature Flags with Deployment Strategies to Optimize the Release Process - Part 3 - Ensuring Consistency between Code and Feature Flag Management System
 
 Your team may deploy frequently per day or per week without fixed scheduled deployment date and time. Your team may also deploy once per bi-weekly or monthly with a fixed date and time. 
 
@@ -98,7 +98,7 @@ public async Task<EnvDiffReportModel> FindKeyAndVariationDiffAsync(EnvDiffParam 
 }
 ```
 
-You can find my sample code in my [**GitHub Repository Here**]().
+You can find my sample code in my GitHub repository [here]().
 
 After you call the API, you can get a report like this:
 
@@ -119,13 +119,14 @@ The third point is various depends on the strategy. For example, the configurati
 
 To compare with the plan, today we can use AI to compare the feature flags with the release plan. The AI can help us to find out if the feature flags in the deployment pipeline are consistent with the release plan.
 
-## Next
 
-In the next article, we will discuss other points that you can check in the pipeline, and give an example of how to integrate these checks into your GitHub action pipeline.
+## Define default value when coding a feature flag
 
-- Define default value when coding a feature flag
-- Check if all feature flags appear in the code are defined in the feature flag management system.
-- Put your examination gate in the pipeline
+If the deployment piepline didn't discover potential risk, we propose also that when writing a new feature flag, define a default value. Normally we give it a default value of `false` to avoid the feature being enabled by mistake. Or other value that will not enable the new version or configuration of feature. 
+
+## Check if all feature flags appear in the code are defined in the feature flag management system.
+
+## Put your examination gate in the pipeline
 
 
 

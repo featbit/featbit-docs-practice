@@ -1,5 +1,6 @@
 {
   "overview": "Overview",
   "combining-feature-flags-with-deployment-strategies-to-optimize-the-release-process-part-2": "Write a Release Plan",
-  "combining-feature-flags-with-deployment-strategies-to-optimize-the-release-process-part-3": "Making Feature Flags Consistent Across Environments"
+  "combining-feature-flags-with-deployment-strategies-to-optimize-the-release-process-part-3": "Making Feature Flags Consistent Across Environments",
+  "combining-feature-flags-with-deployment-strategies-to-optimize-the-release-process-part-4": "Ensuring Consistency between Code and Configuration"
 }
