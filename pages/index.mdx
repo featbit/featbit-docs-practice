@@ -32,11 +32,24 @@ FeatBit is a fast and scalable open source feature management platform that allo
 
 ## 企业痛点与回报 
 
+- 更少的 BUG，单位时间内交付更多的价值（更早的交付，更好的交付）。
+- 提高 DORA 指标的 Software Delivery Performance，以及降低团队总人时。
+- 更低的管理成本。
+- 更低的维护和运维成本。
+
 ### 系统 BUG 造成的业务流失与用户体验下降【直接降低人时】
 
 - 任何一个小的功能点的 BUG，都有可能造成用户流失。而这些 BUG 通常是由于新功能的上线、功能的修改、功能的删除等操作引起的。
 - 发现问题的时间长，修复问题的时间长。有时加班加点不睡觉，也不一定能解决问题。
 - 无法快速回滚与修复。使客户信任度下降，使团队压力增加。
+
+提升指标：【Mean Time to Restore Service (MTTR) 与 Change Failure Rate】
+人时降低率：参考 ROI 数据案例
+
+### 随时交付新功能，快速响应市场需求
+
+提升指标：【Deployment Frequency 与 Lead Time for Changes】
+人时降低率：参考 ROI 数据案例
 
 ### 高额的 DevOps 学习成本与操作复杂度【直接降低人时】
 
@@ -44,11 +57,17 @@ FeatBit is a fast and scalable open source feature management platform that allo
 - 一个版本发布多个功能变更，出现错误无法快速给研发团队定位问题所在。运维人员参与的同时，需要所有相关团队坐以待命。
 - 出现异常问题后，多个部门责任互甩、无用沟通。大量的降低了宝贵的产品研发时间。
 
+提升指标：【Deployment Frequency 与 Lead Time for Changes】【Mean Time to Restore Service (MTTR) 与 Change Failure Rate】
+人时降低率：参考 ROI 数据案例
+
 ### 为交付或 BUG 回滚与修复增加员工额外工作量【直接降低人时】
 
 - BUG 回滚与修复成本高昂。如一个小的 BUG 使多个团队加班等待。无意义的内耗。
 - 特性发布，需要业务与技术人员的协同沟通与协调。经常让多个团队坐班待命，无意义的内耗。
 - 交付周期长，无法快速响应市场需求。经常需要等待完整的开发周期。
+
+提升指标：【Mean Time to Restore Service (MTTR) 与 Change Failure Rate】
+人时降低率：参考 ROI 数据案例
 
 ### 协同交付沟通复杂、延期风险高、压力负担重【直接降低人时】
 
@@ -59,6 +78,9 @@ FeatBit is a fast and scalable open source feature management platform that allo
 - 出现 BUG 后的回滚与修复成本高昂。如一个小的 BUG 使多个团队加班等待。无意义的内耗。
 
 试想，如果功能的交付全部由相关人员（业务）自行管理，那么研发团队将省去相关的人时，提高人效。
+
+提升指标：【Deployment Frequency 与 Lead Time for Changes】【Mean Time to Restore Service (MTTR) 与 Change Failure Rate】
+人时降低率：参考 ROI 数据案例
 
 ### 自研之痛 - 统一效能管理与评估
 
@@ -71,6 +93,9 @@ FeatBit is a fast and scalable open source feature management platform that allo
 - 新的团队起新的项目，及时借用邻居部门已有经验，仍需要重新部署一套系统，且无法快速的接入对应的管理。
 - 一个新的项目，无法快速的与企业已有
 - 跨部门、跨项目组、跨智能的团队无法基于可视化平台，进行安全的、权责清晰的功能控制工作。
+
+提升指标：【Deployment Frequency 与 Lead Time for Changes】【Mean Time to Restore Service (MTTR) 与 Change Failure Rate】
+人时降低率：参考 ROI 数据案例
 
 ### 自研之痛 - 日志跟踪
 
@@ -89,6 +114,20 @@ FeatBit 提供技术支持服务，帮助企业基于 FeatBit 进行特定需求
 FeatBit 主打私有化部署方案，提供 Terraform，Helm Chart 等安装方案方便企业在私有云、混合云、多云环境中部署。
 
 FeatBit 提供了如 OpenTelemetry 等标准运维集成接口，使产品运行可以被全链路监测与管理。
+
+## 回报数据
+
+9倍提高部署频率（Deployment Frequency）
+
+交付灾难客户感知度（Change Failure Rate）降低90%。
+
+90% 的问题修复时间缩短至 Elite 级别。修复问题涉及到的平均人工成本降低200%。
+
+需求确认到提交的时间（Lead Time for Changes）整体缩减 27%，单位周期内 Story Point 总得分提高 30%。
+
+减少了 100% 的原计划投入预算，10倍缩短企业全团队技术普及的时间。
+
+工具参与的业务模块实现 20% 的年营收增长。
 
 ## 部分功能演示
 
