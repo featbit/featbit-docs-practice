@@ -14,20 +14,10 @@ Here're some points that you can check in the pipeline:
    - Check if the feature flag has configured schedule to enable or disable the feature.
 3. Check if all feature flags appear in the code are defined in the feature flag management system.
 
-In this article, we will discuss how to make features consistent across environments by using FeatBit step by step.
+![](../continuous-delivery-practice/assets/optimize-release-process/environment-consistency/ffcheck-in-pipeline.png)
 
+In this page, we will discuss how to make features consistent across environments (for point 1 and 2 above) by using FeatBit step by step. Next page, we will discus how to check if all feature flags appear in the code are defined in the feature flag management system.
 
-```
-
-这里需要有张图，
-
-Step 1: Check if some feature flags missed in current cd pipeline
-
-Step 2: Adjust your Release Plan with your Deployment
-
-Step 3: Check if all feature flags appear in the code are defined in the feature flag management system
-
-```
 
 ## Check if some feature flags missed in current cd pipeline
 
