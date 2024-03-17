@@ -15,3 +15,5 @@ Article 3: [Making Features Consistent Across Environments](https://www.featbit.
 Article 4: [Ensuring Consistency between Code and Feature Flag Management System](https://www.featbit.co/blogs/Combining-Feature-Flags-with-Deployment-Strategies-to-Optimize-the-Release-Process-Part-4)
 
 Article 5: [Ensuring Good Execution of Release Plan]()
+
+Article 6: [Measuring your Delivery Performance]()
