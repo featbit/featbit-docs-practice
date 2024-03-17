@@ -36,12 +36,7 @@ Release planning is a dynamic process that requires adaptability and flexibility
 
 Both deployment rythms may include a set of features and updates. In one single deployment, scheduled one may include many more features and updates than the frequent one. The release plan is not anymore only a plan for the deployment, but more for the new features and updates. Traditionnaly delivery method can't meet the challenges anymore, we need to introduce Feature Flags to the optimize the release plan and the deployment process.
 
-```
-
-这里应该有张图
-
-
-```
+![](../continuous-delivery-practice/assets/optimize-release-process/create-release-plan/set-of-new-feature-n-update.png)
 
 When product manager or project manger design the release plan, they need to consider the risk management and coordination performance. So I highly recommend that the engineering team should also be involved in the release plan design process. They both need to understand the importance of feature flags in the release plan.
 
@@ -67,6 +62,8 @@ I repeat the same thing in the previous paragraph. Because it's important for qu
 
 The complexity of the release plan increases with the number of features and updates. The more features and updates, the more complex the release plan, especially if a feature requires coordination across multiple teams or multiple submodules. 
 
+![](../continuous-delivery-practice/assets/optimize-release-process/create-release-plan/complexity-management.png)
+
 Feature Flags help reduce the complexity of the release plan by allowing teams to manage features and updates independently. This means that the release plan can be broken down into smaller, more manageable tasks, with each subtask or update developed, tested, and released independently of the others. This reduces the risk of interdependencies causing delays or problems in the release process.
 
 For example, a new feature needs to be developed in Module A and Module B, and these modules are developed by two different teams. Module B needs to use an API in Module A. This can cause low delivery performance or delivery risk in these scenarios, such as
@@ -76,12 +73,6 @@ For example, a new feature needs to be developed in Module A and Module B, and t
 - The requirements may change during development. It could be a nightmare of collaboration between two teams, especially when the two teams have other tasks to do.
 - And so on.
 
-```
-
-这里应该有张图
-
-
-```
 
 To avoid many potential low performance release plans, the team should introduce feature flags to decouple the dependencies. The release plan might look like this:
 
