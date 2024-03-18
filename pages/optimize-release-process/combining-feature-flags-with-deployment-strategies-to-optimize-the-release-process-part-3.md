@@ -30,15 +30,14 @@ The best solution is to share a feature flag in different environments. Some pro
 
 The evaluation rules can be different in different environments.
 
-Currently, feature flag creation in FeatBit is independent between environments. If you want to verify that the feature flag is consistent between environments, you may need to consider the following:
+Currently, feature flag creation in FeatBit is independent between environments. But FeatBit is planning to support sharing feature flags between environments. If you want to verify that the feature flag is consistent between environments, you may need to consider the following:
 
 1. Go to the FeatBit portal and log in. Click on the **Access Token** menu item under **Integration** to go to the Access Token page.
 2. On the **Access Token** page, click the **Add** button to create a new access token and name it "Pipeline Token".
 ![](../optimize-release-process/assets/environment-consistency/create-access-token.png)
-
 3. Store the token in a safe place. You will not be able to see it again.
 
-You can use the API `https://{FeatBit API Service Url}/api/v1/envs/{envId}/feature-flags` to get all feature flags configuration in the testing environment. (For FeatBit Rest API, please check documentation [Using FeatBit REST API](https://docs.featbit.co/api-docs/using-featbit-rest-api))
+Using the API `https://{FeatBit API Service Url}/api/v1/envs/{envId}/feature-flags` to get all feature flags configuration in the testing environment. (For FeatBit Rest API, please check documentation [Using FeatBit REST API](https://docs.featbit.co/api-docs/using-featbit-rest-api))
 
 ![](../optimize-release-process/assets/environment-consistency/postman-get-environment-all-feature-flag.png)
 
@@ -89,11 +88,9 @@ You can find my sample code in my [**GitHub Repository Here**](https://github.co
 
 You can generate an alert in your CD pipeline if there's a difference. A human can check if it's a normal case or an error. 
 
-The feature flags in the different environments may have different configurations, and that's normal because the strategy between testing and production for marketing purposes is very different. To avoid deployment risk, we'd better also check if the configuration is consistent with the plan in our CD pipeline.
-
 ## Check feature flag configuration is consistent between environments.
 
-The configuration between two environments can be the same or not, it depends on the type of feature flag you create.
+The feature flags in the different environments may have different configurations, and that's normal because the strategy between testing and production for marketing purposes is very different. To avoid deployment risk, we'd better also check if the configuration is consistent with the plan in our CD pipeline. The configuration between two environments can be the same or not, it depends on the type of feature flag you create.
 
 - Remote config purpose, it can be tiny different, but it should be consistent with the release plan.
 - Permission control purpose, it should be consistent between environments, especially your user identical settings (e.g. user id, user key, email) are shared between environments. But it can be different in some cases. 
