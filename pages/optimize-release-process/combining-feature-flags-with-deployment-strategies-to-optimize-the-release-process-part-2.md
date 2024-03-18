@@ -1,4 +1,4 @@
-# Combining Feature Flags with Deployment Strategies to Optimize the Release Process - Create a Release Plan
+# Combining Feature Flags with Deployment Strategies to Optimize the Release Process - Release Plan
 
 
 In the complex landscape of software development, a release plan serves as the guiding blueprint that navigates the journey from code creation to deployment. It encapsulates the strategic vision for delivering new features or updates and outlines the timeline, tasks, and dependencies involved in the process. Crucially, a release plan acts as a beacon, illuminating the path to successful project execution amidst the complexities of modern development environments.
@@ -36,7 +36,7 @@ Release planning is a dynamic process that requires adaptability and flexibility
 
 Both deployment rythms may include a set of features and updates. In one single deployment, scheduled one may include many more features and updates than the frequent one. The release plan is not anymore only a plan for the deployment, but more for the new features and updates. Traditionnaly delivery method can't meet the challenges anymore, we need to introduce Feature Flags to the optimize the release plan and the deployment process.
 
-![](../continuous-delivery-practice/assets/optimize-release-process/create-release-plan/set-of-new-feature-n-update.png)
+![](../optimize-release-process/assets/create-release-plan/set-of-new-feature-n-update.png)
 
 When product manager or project manger design the release plan, they need to consider the risk management and coordination performance. So I highly recommend that the engineering team should also be involved in the release plan design process. They both need to understand the importance of feature flags in the release plan.
 
@@ -62,7 +62,7 @@ I repeat the same thing in the previous paragraph. Because it's important for qu
 
 The complexity of the release plan increases with the number of features and updates. The more features and updates, the more complex the release plan, especially if a feature requires coordination across multiple teams or multiple submodules. 
 
-![](../continuous-delivery-practice/assets/optimize-release-process/create-release-plan/complexity-management.png)
+![](../optimize-release-process/assets/create-release-plan/complexity-management.png)
 
 Feature Flags help reduce the complexity of the release plan by allowing teams to manage features and updates independently. This means that the release plan can be broken down into smaller, more manageable tasks, with each subtask or update developed, tested, and released independently of the others. This reduces the risk of interdependencies causing delays or problems in the release process.
 
