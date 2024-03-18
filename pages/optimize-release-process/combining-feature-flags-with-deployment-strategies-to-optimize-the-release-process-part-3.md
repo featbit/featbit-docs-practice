@@ -147,15 +147,6 @@ Then I got the answer in json format:
 
 In conclusion, ensuring consistency across environments is crucial for successful feature flag management. By utilizing FeatBit's Rest APIs and employing effective comparison methods, teams can identify discrepancies and align configurations. While automated checks offer efficiency, human oversight remains essential for nuanced decisions, considering business requirements and deployment strategies.
 
-## Next
-
-In the next few articles, we will discuss other things you can check in the pipeline, and give an example of how to integrate these checks into your GitHub action pipeline.
-
-- Ensuring Consistency between Code and Feature Flag Management System
-- Ensuring Feature Flags settings is Consistent with the Release Plan
-- Include your check gate in the pipeline like Azure DevOps and GitHub actions.
-- Define a default value when coding a feature flag
-
 
 
 
