@@ -12,11 +12,11 @@ Here are some items you can check in the pipeline:
 2. Verify that your deployment pipeline aligns with the product release plan defined by the product/project managers.
    - Verify that the new feature flag that doesn't expose the new feature to the public immediately after deployment is disabled. 
    - Verify that the feature flag has a configured schedule for activating or deactivating the feature.
-3. Verify that all feature flags appearing in the code are defined in the feature flag management system.
+3. Verify that all [feature flags](https://www.featbit.co) appearing in the code are defined in the [feature management](https://www.featbit.co/blogs/Free-and-Open-Source-Feature-Flag-Tools) system.
 
 ![](../optimize-release-process/assets/environment-consistency/ffcheck-in-pipeline.png)
 
-In this article, we will discuss how to make features consistent across environments (for points 1 and 2 above) by using FeatBits. In the next article, we will discuss how to check that all feature flags that appear in the code are defined in the feature flag management system.
+In this article, we will discuss how to make features consistent across environments (for points 1 and 2 above) by using [FeatBits](https://www.featbit.co). In the next article, we will discuss how to check that all feature flags that appear in the code are defined in the [feature flag management](https://www.featbit.co/blogs/Free-and-Open-Source-Feature-Flag-Tools) system.
 
 
 ## Check if some feature flags are missing
@@ -145,7 +145,7 @@ Then I got the answer in json format:
 
 ## Conclusion
 
-In conclusion, ensuring consistency across environments is crucial for successful feature flag management. By utilizing FeatBit's Rest APIs and employing effective comparison methods, teams can identify discrepancies and align configurations. While automated checks offer efficiency, human oversight remains essential for nuanced decisions, considering business requirements and deployment strategies.
+In conclusion, ensuring consistency across environments is crucial for successful [feature flag management](https://www.featbit.co/blogs/Free-and-Open-Source-Feature-Flag-Tools). By utilizing FeatBit's Rest APIs and employing effective comparison methods, teams can identify discrepancies and align configurations. While automated checks offer efficiency, human oversight remains essential for nuanced decisions, considering business requirements and deployment strategies.
 
 
 
