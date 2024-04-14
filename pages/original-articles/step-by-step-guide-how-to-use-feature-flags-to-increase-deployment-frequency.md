@@ -4,18 +4,56 @@ Deployment frequency is one of the most important metric that DORA (DevOps Resea
 
 
 **Prerequisites**: 
-1. Readers need to have a practical understanding of continuous integration and continuous deployment (CI/CD). The feature flag practice in this article will be less effective without the mature CI/CD pipelines.
+1. Readers need to have a practical understanding of continuous integration and continuous deployment (CI/CD).
 2. Readers need to have a basic understanding of feature flags.
 
-每个功能都用 feature flag 控制。代码被合并到 main 分之后，了之后可以发布到 uat 环境。测试在被通知功能上线后，在uat打开开关进行测试。 当一个部署到生产环境的任务被提交后，uat上的内容可以直接部署至生产环境。只将测试好的逐步发布出去即可。
+## Step 1, why we need to deploy frequently.
+
+It's all about "Money". The more frequently you deploy, the earlier you can deliver value to the customer. The earlier you deliver value to the customer, the earlier you can get feedback from the customer. The earlier you get feedback from the customer, the earlier you can adjust your product to meet the customer's needs. The earlier you adjust your product to meet the customer's needs, the more money you can make.
+
+## Step 2, understanding what prevent us from deploying frequently.
+
+1. Fear of deployment risk. The more frequently you deploy, the more failed delivery may happen. Each failure bring you more fear, the less frequently you deploy.
+
+Why failure bring us more fear? 
+
+- Bug may impact the customer experience, cause customer churn then revenue loss.
+- Rollback, fix and re-deploy will cost more time and make the team exhausted.
+
+2. Big story or big feature. The bigger the story or feature, the more time it takes to develop and test, and the less frequently you can deploy.
+
+Why we keep the story or feature big?
+
+- We want to make the feature perfect before we deploy it.
+- The sub-feature of the big feature is not independent, it can't serve the customer independently.
+
+## Step 3, understand the what did we do wrong to prevent failure and reduce fear.
+
+What we did to prevent failure and reduce fear?
+
+1. Make the features we will deploy to be tested as much as possible.
+2. Fix a deployment date (every two weeks, every month, even more).
+3. Only merge the well tested feature branches to the main, and keep others in the feature branch.
+4. Or don't even start the feature which won't be deployed in the next deployment date.
+
+What was wrong with the above practices?
+
+- For points 1 and 2, nothing wrong, but we can do better. 
+- For points 3, it may cause long-lived feature branches, and increase the code conflict risk, review cost, and test cost. Especially the performance of testing will largely impact the delivery performance.
+- For point 4, hmm... you may lose the opportunity to deliver value to the customer earlier, loss the competitive advantage, **then go broke**. 
+
+## Step 4, what was wrong with the excuse of big story?
+
+1. Let customer tell you whether the feature is perfect or not is a much better way than you think it's perfect.
+2. 
+
+## Step 5, if you can't deploy frequently as what your competitors do, you will be out of the game.
+
+The delivery value gap is not too big for each deployment, but it's a huge gap if you accumulate it for a long time, then you will be out of the game.
 
 
-当一个功能既有web端，又有移动端，甚至后端也进行了修改时。用三个 feature flags 分别控制往往难于管理。可以使用一个 feature flag进行控制，用独立的规则对不同的设备进行灰度发布管控。并且可以使用 approval方法，在修改后让不同的团队审核通过，比如移动端团队的改动可以让web端审核通过。等当多个端整体完成新能力后，再集体清理 feature flag代码。
 
-有一种理论是用 feature flag 拯救 long-lived feature branch 的困难，将代码尽可能的合并到主分支中，用 feature flag 控制。我本人是接受并且实践过这种做法的。但有些团队因为一些原因并支持这种做法，不希望将没有完成的功能合并到主分支。那么可以首先将 long-lived feature 尽可能切割成短 feature，正如scrum里面经常会讲一个story切分成多个小于13 points的小story一样。然后用 feature flag 去控制这个被切割后的功能。
 
-此时，可以将这些小功能部署到UAT,SIT和PROD中。对于独立并不能完成整体业务的能力，UAT（甚至SIT）中仍然可以对其进行有效的测试，而在 PROD 中我们将其关闭即可。
 
-这些大的、小的功能在最终全部可用前，被 feature flags 控制，不仅可以降低部署风险，减少代码分支管理困难，更灵活的和尽可能早的部署发布功能外，还可以将功能的管理变的更加的可追踪化。
 
 
