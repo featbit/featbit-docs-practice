@@ -34,6 +34,8 @@ Imagine we have an SQL database where we store complex order data in some tables
 
 To avoid unexpected downtime and ensure the new data store functions as expected, we opt for an incremental migration. This involves testing the migration in production and gradually migrating the data using a dual-write/dual-read methodology.
 
+![](../original-articles/assets/testing-feature-toggle-with-xunit/migration-hint.png)
+
 We use a feature flag to control the data migration. Suppose we've already tested the migration process for writing data. The code below provides a more detailed example of the `ReadDataOneAsync` method (for reading data) mentioned earlier:
 
 ```csharp
@@ -44,31 +46,19 @@ public async Task<OneModel?> ReadDataOneAsync(string id)
     var f1 = async () =>
     {
         var one = await _oneRepository.GetByIdAsync(id);
-        return one == null ? null : new OneModel()
-        {
-            Id = one.Id
-        };
+        return one == null ? null : new OneModel(one);
     };
     // function for retriving data (name is one) from noSql database
     var f2 = async () =>
     {
         var one = await _oneNoSqlRepository.GetByIdAsync(id);
-        return one == null ? null : new OneModel()
-        {
-            Id = one.Id
-        };
+        return one == null ? null : new OneModel(one);
     };
     // function for comparing the result of two functions above
     Action<OneModel?, OneModel?> aCompare = (r1, r2) =>
     {
-        if(r2 == null)
-        {
-            _logger.LogError($"Read One item in NoSql Database Failed");
-        }
-        if(r1?.Id != r2?.Id)
-        {
-            _logger.LogError($"Item in noSql Database doesn't equal to Item in sql databse");
-        }
+        // some code for comparing the result of two functions above
+        // if the result is not equal, log an error
     };
     // executing the migration process
     return await FbDbMigration<OneModel?>.MigrateAsync(f1, f2, _fbClient, "data-one-migration", aCompare);
@@ -78,13 +68,15 @@ public async Task<OneModel?> ReadDataOneAsync(string id)
 ```csharp
 // Method which is used to control the migration process
 public async static Task<T> MigrateAsync(
-    Func<Task<T>> a1, Func<Task<T>> a2, IFbClient fbClient, 
+    Func<Task<T>> a1, Func<Task<T>> a2, IFbClient featureFlags, 
     string ffKey, Action<T, T> compare, int timeOut = 10000)
 {
-    var migrationState = fbClient.MigrationState(ffKey);
-    if (migrationState == FeatBitMigrationEnum.ReadFromOldDbOnly)
+    // get the migration state from feature flag
+    var migrationState = featureFlags.MigrationState(ffKey);
+
+    if (migrationState == MigrationEnum.ReadFromOldDbOnly)
         return await Task.Run<T>(a1);
-    else if (migrationState == FeatBitMigrationEnum.ReadFromNewDbOnly)
+    else if (migrationState == MigrationEnum.ReadFromNewDbOnly)
         return await Task.Run<T>(a2);
     else
     {
@@ -100,19 +92,6 @@ public async static Task<T> MigrateAsync(
 
         return parallelTasks[0];
     }
-}
-
-// extension of FbClient to evaluate migration feature flag value
-public static FeatBitMigrationEnum MigrationState(this IFbClient fb, string featureFlagKey, string defaultValue = "")
-{
-    var migStr = fb.StringVariation(featureFlagKey, FbUser.Builder($"transit-{new Guid()}").Build(), defaultValue);
-    return migStr switch
-    {
-        "ReadFromOldDbOnly" => FeatBitMigrationEnum.ReadFromOldDbOnly,
-        "ReadFromOldAndNewDb" => FeatBitMigrationEnum.ReadFromOldAndNewDb,
-        "ReadFromNewDbOnly" => FeatBitMigrationEnum.ReadFromNewDbOnly,
-        _ => FeatBitMigrationEnum.ReadFromOldDbOnly
-    };
 }
 ```
 
@@ -206,6 +185,6 @@ After running (or debugging) the test, you will see the testing results below. T
 
 ## Code Source
 
-The feature flag code and service mentioned above use the FeatBit service and [FeatBit's .NET server SDK](https://github.com/featbit/featbit-dotnet-sdk). You can visit their [official website](https://www.featbit.co) and [GitHub repository](https://github.com/featbit/featbit) for more information.
+The feature flag code and service mentioned above used the FeatBit service and [FeatBit's .NET server SDK](https://github.com/featbit/featbit-dotnet-sdk). You can visit their [official website](https://www.featbit.co) and [GitHub repository](https://github.com/featbit/featbit) for more information.
 
 The code demonstrated in the article is also available in [FeatBit's sample project](https://github.com/featbit/featbit-samples/tree/main/samples/unitest).
