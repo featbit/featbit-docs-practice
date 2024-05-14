@@ -14,26 +14,41 @@ But many teams don't want to use Azure App Configuration (AAC) service for featu
 
 So we need to let Microsoft.FeatureManagement library to be used with other feature flag providers. In this article, I will show you how to create a custom feature provider for Microsoft.FeatureManagement library.
 
-- IFeatureFilter
-- Built-in Feature Providers
+## Three ways to implement a custom feature provider
 
-## Two ways to create a custom feature provider
-
-There are two ways to create a custom feature provider for Microsoft.FeatureManagement library:
+There are 3 ways to create a custom feature provider for Microsoft.FeatureManagement library:
 
 1. Using existing json configuration format, and use built-in feature filter. You need to convert 3rd party feature flag configuration format to Microsoft.FeatureManagement configuration format.
-2. Using IFeatureFilter, and use custom feature flag configuration format. You keep the feature flag code in the application, but it's totally a new feature flag service.
+2. Using IFeatureFilter or IContextualFeatureFilter, and use custom feature flag configuration format. You keep the feature flag code in the application, but it's totally a new feature flag service.
+3. Using IFeatureFilter or IContextualFeatureFilter, use built-in configuration format. You need to rewrite the built-in feature flag evaluation logic.
+
+FeatureFilter and Built-int Feature Providers can be used together. You can use FeatureFilter to create a custom feature flag service, and use Built-in Feature Providers to create a feature flag service based on existing feature flag service.
+
+```json
+"MyFeature": {
+    "EnabledFor": [
+        {
+            "Name": "MyCriteria"
+        },
+        {
+            "Name": "Microsoft.Percentage",
+            "Parameters": {
+                "Value": 50
+            }
+        }
+    ]
+}
+```
+
+## Solution: Using IFeatureFilter or IContextualFeatureFilter
 
 
-## IFeatureFilter
-
-IFeatureFilter allow you to create a custom feature filter for Microsoft.FeatureManagement library. The IFeatureFilter interface has only one method: `EvaluateAsync`. You can write your own logic to evaluate the feature flag. The method should return a boolean value to indicate whether the feature is enabled or not.
+IFeatureFilter or IContextualFeatureFilter allow you to create a custom feature filter for Microsoft.FeatureManagement library. The IFeatureFilter interface has only one method: `EvaluateAsync`. You can write your own logic to evaluate the feature flag. The method should return a boolean value to indicate whether the feature is enabled or not.
 
 It's all depends on your requirements. 
 
-Get context parameter configuration, this are texts, so this can be the configuration of FeatBit.
 
-## Built-in Feature Providers
+## Solution: Built-in Feature Providers
 
 Microsoft.FeatureManagement library provides many customizable interfaces for feature management. The most important interfaces are:
 
