@@ -48,6 +48,8 @@ IFeatureFilter or IContextualFeatureFilter allow you to create a custom feature 
 It's all depends on your requirements. 
 
 
+![](../original-articles/assets/microsoft-feature-management-custom-feature-provider/pic1.png)
+
 ## Solution: Built-in Feature Providers
 
 Microsoft.FeatureManagement library provides many customizable interfaces for feature management. The most important interfaces are:
