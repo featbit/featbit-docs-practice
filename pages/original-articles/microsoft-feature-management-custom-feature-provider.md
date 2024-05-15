@@ -14,9 +14,9 @@ But many teams don't want to use Azure App Configuration (AAC) service for featu
 
 So we need to let Microsoft.FeatureManagement library to be used with other feature flag providers. In this article, I will show you how to create a custom feature provider for Microsoft.FeatureManagement library.
 
-## Three ways to implement a custom feature provider
+## Three methods to implement a custom feature provider
 
-There are 3 ways to create a custom feature provider for Microsoft.FeatureManagement library:
+There are 3 methods to create a custom feature provider for Microsoft.FeatureManagement library:
 
 1. Using existing json configuration format, and use built-in feature filter. You need to convert 3rd party feature flag configuration format to Microsoft.FeatureManagement configuration format.
 2. Using IFeatureFilter or IContextualFeatureFilter, and use custom feature flag configuration format. You keep the feature flag code in the application, but it's totally a new feature flag service.
@@ -40,13 +40,128 @@ FeatureFilter and Built-int Feature Providers can be used together. You can use 
 }
 ```
 
-## Solution: Using IFeatureFilter or IContextualFeatureFilter
+## Method 1: Convert from custom configuration to Microsoft.FeatureManagement's configuration
 
+Here's an example: FeatBit (an open-source feature flag service built with .NET) has a different configuration format from Microsoft.FeatureManagement. The two services are not 100% compatible with each other. For example:
+
+- FeatBit can have multiple variants for a feature flag, while Microsoft.FeatureManagement only supports boolean values.
+- FeatBit allows multiple customized rule conditions, whereas Microsoft.FeatureManagement only supports a few built-in rule conditions.
+- Microsoft.FeatureManagement supports recurrence schedules, but FeatBit does not support this feature.
+- And so on.
+
+Therefore, you need to find a compromise way to convert your custom feature flag's configuration to Microsoft.FeatureManagement's configuration, such as:
+
+- Only support boolean values for feature flags.
+- Map the custom rule conditions to Microsoft.FeatureManagement's built-in rule conditions.
+- Ignore the recurrence schedule.
+
+Below is a sample (simplified) of FeatBit's feature flag configuration:
+
+
+```json
+{
+    ...
+    "key": "featureflagname",
+    "variationType": "boolean",
+    "variations": [
+        {
+            ...
+            "value": "true"
+        },
+        {
+            ...
+            "value": "false"
+        }
+    ],
+    ...
+    "rules": [
+        {
+            "id": "8ee2951d-a121-47d6-b7d0-b33cf633a2ff",
+            "name": "Groups",
+            ...
+            "conditions": [
+                {
+                    "id": "4c37d50d-81cb-4caa-b3b3-fa91bd80f431",
+                    "property": "Groups",
+                    "op": "IsOneOf",
+                    "value": ["group1"]
+                }
+            ],
+            "variations": [
+                {
+                    "id": "201909b4-0c7f-4fec-92da-9980f648e2be",
+                    "rollout": [
+                        0,
+                        1
+                    ],
+                    "exptRollout": 1
+                }
+            ]
+        }
+    ],
+    ...
+}
+```
+
+You need to find a way to convert the above configuration to Microsoft.FeatureManagement's configuration format:
+
+```json
+"featureflagname": {
+    "EnabledFor": [
+        {
+            "Name": "Microsoft.Targeting",
+            "Parameters": {
+                "Audience": {
+                    ...
+                    "Groups": [
+                        {
+                            "Name": "group1",
+                            "RolloutPercentage": 100
+                        },
+                    ],
+                    ...
+                }
+            }
+        }
+    ]
+}
+```
+
+You need to implement a custom feature provider 
+
+```csharp
+public class FeatBitFeatureDefinitionProvider : IFeatureDefinitionProvider
+{
+    private readonly Dictionary<string, FeatureDefinition> _features;
+
+    public FeatBitFeatureDefinitionProvider()
+    {
+    }
+    public async IAsyncEnumerable<FeatureDefinition> GetAllFeatureDefinitionsAsync()
+    {
+        // get feature flags from FeatBit service
+        var featbitFeatures = FeatBitInstance.GetAllFeatures();
+        // convert FeatBit's feature flags to Microsoft.FeatureManagement's feature flags configuration
+        foreach (var feature in featbitFeatures)
+        {
+            yield return feature.ToFeatureDefinition();
+            await Task.Yield(); 
+        }
+    }
+
+    public async Task<FeatureDefinition> GetFeatureDefinitionAsync(string featureName)
+    {
+        _features.TryGetValue(featureName, out var feature);
+        return await Task.FromResult(feature);
+    }
+}
+```
+
+## Method 2: Customize IFeatureFilter's method "EvaluateAsync"
 
 IFeatureFilter or IContextualFeatureFilter allow you to create a custom feature filter for Microsoft.FeatureManagement library. The IFeatureFilter interface has only one method: `EvaluateAsync`. You can write your own logic to evaluate the feature flag. The method should return a boolean value to indicate whether the feature is enabled or not.
 
 It's all depends on your requirements. 
-
 
 ![](../original-articles/assets/microsoft-feature-management-custom-feature-provider/pic1.png)
 
