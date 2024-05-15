@@ -103,7 +103,7 @@ Below is a sample (simplified) of FeatBit's feature flag configuration:
 }
 ```
 
-You need to find a way to convert the above configuration to Microsoft.FeatureManagement's configuration format:
+Below is a Microsoft.FeatureManagement's configuration format:
 
 ```json
 "featureflagname": {
@@ -127,34 +127,58 @@ You need to find a way to convert the above configuration to Microsoft.FeatureMa
 }
 ```
 
-You need to implement a custom feature provider 
+To convert the FeatBit's feature flag configuration to Microsoft.FeatureManagement's configuration, you need to implement `IFeatureDefinitionProvider` interface and complete the `GetAllFeatureDefinitionsAsync` and `GetFeatureDefinitionAsync` methods. In the `GetAllFeatureDefinitionsAsync` method:
+
+1. Get feature flags from FeatBit service.
+2. Convert each feature flag's configuration of FeatBit to Microsoft.FeatureManagement's feature flag configuration.
+3. Return the converted feature flags configuration.
 
 ```csharp
 public class FeatBitFeatureDefinitionProvider : IFeatureDefinitionProvider
 {
-    private readonly Dictionary<string, FeatureDefinition> _features;
+    private readonly IFbClient _fbClient;
+    private IEnumerable<FeatureDefinition> _definitions;
 
-    public FeatBitFeatureDefinitionProvider()
+    public FeatBitFeatureDefinitionProvider(IFbClient fbClient)
     {
+        _fbClient = fbClient;
+        _definitions = Array.Empty<FeatureDefinition>();
     }
+
+#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
     public async IAsyncEnumerable<FeatureDefinition> GetAllFeatureDefinitionsAsync()
+#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
     {
-        // get feature flags from FeatBit service
-        var featbitFeatures = FeatBitInstance.GetAllFeatures();
-        // convert FeatBit's feature flags to Microsoft.FeatureManagement's feature flags configuration
-        foreach (var feature in featbitFeatures)
+        // get feature flags from FeatBit
+        var flags = _fbClient.AllFlags();
+
+        // convert FeatBit's feature flags to Microsoft.FeatureManagement's feature flag configuration
+        _definitions = flags.Select(x => x.ToFeatureDefinition());
+
+        foreach (var definition in _definitions)
         {
-            yield return feature.ToFeatureDefinition();
-            await Task.Yield(); 
+            yield return definition;
         }
     }
 
-    public async Task<FeatureDefinition> GetFeatureDefinitionAsync(string featureName)
+    public Task<FeatureDefinition> GetFeatureDefinitionAsync(string featureName)
     {
-        _features.TryGetValue(featureName, out var feature);
-        return await Task.FromResult(feature);
+        var feature = _definitions.FirstOrDefault(x => x.Name == featureName);
+        return Task.FromResult(feature!);
     }
 }
+```
+
+You can initialize the Microsoft Feature Management's custom provider `FeatBitFeatureDefinitionProvider` in the `Program.cs` file:
+
+```csharp
+...
+
+services.AddSingleton<IFbClient, FbClient>();
+services.AddSingleton<IFeatureDefinitionProvider, FeatBitFeatureDefinitionProvider>()
+        .AddFeatureManagement();
+
+...
 ```
 
 ## Method 2: Customize IFeatureFilter's method "EvaluateAsync"
