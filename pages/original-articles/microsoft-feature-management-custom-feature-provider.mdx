@@ -220,7 +220,7 @@ public class FeatBitFeatureDefinitionProvider : IFeatureDefinitionProvider
         // get feature flags from FeatBit
         var flags = _fbClient.AllFlags();
 
-        // convert FeatBit's feature flags to Microsoft.FeatureManagement's feature flag configuration
+        // convert FeatBit's feature flags to IConfiguration settings
         _definitions = flags.Select(x => {
             return new FeatureDefinition
             {
