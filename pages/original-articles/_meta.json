@@ -1,4 +1,6 @@
 {
   "how-to-use-feature-flags-to-increase-deployment-frequency": "How to Use Feature Flags to Increase Deployment Frequency",
-  "testing-feature-toggle-with-xunit": "Testing Feature Toggles with xUnit"
+  "testing-feature-toggle-with-xunit": "Testing Feature Toggles with xUnit",
+  "microsoft-feature-management-custom-feature-provider": "Microsoft Feature Management Custom Feature Provider",
+  "grayscale-feature-releases-decoupling-deployment-from-release": "Grayscale Feature Releases: Decoupling Deployment from Release"
 }
