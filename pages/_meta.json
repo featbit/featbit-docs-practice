@@ -1,9 +1,8 @@
 {
   "index": "Practices Overview",
-  "maintenance-practice": "Maintenance",
-  "optimize-release-process": "Optimize Release Process",
-  "faq-for-tech-leads-n-cto": "FAQ for Team Leads",
+  "best-practice": "Best Practices",
   "original-articles": "Articles",
+  "optimize-release-process": "Optimize Release Process",
   "home": {
     "title": "Home",
     "type": "page",
