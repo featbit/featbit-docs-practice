@@ -1,4 +1,4 @@
-# Using Feature Flags Across the Entire Organization - Sharable Segments
+# Using Feature Flags Across the Entire Organization - Shareable Segments
 
 **Prerequisites**: 
 1. Readers should have a basic understanding of [feature flags](https://en.wikipedia.org/wiki/Feature_toggle).
@@ -38,37 +38,37 @@ Click 'Import' button to import global users from a json file.
 ![Import Global Users](../best-practice/assets/using-feature-flags-across-the-entire-organization-sharable-segments/import-global-users.png)
 
 
-### Add a sharable segment
+### Add a shareable segment
 
-You can add a sharable segment in any environment of a project. 
+You can add a shareable segment in any environment of a project. 
 
 Switch to the `Segments` page, click `Add` button. Choose `Shareable` segment type.
 
-![Add sharable segment](../best-practice/assets/using-feature-flags-across-the-entire-organization-sharable-segments/add-sharable-segment.png)
+![Add shareable segment](../best-practice/assets/using-feature-flags-across-the-entire-organization-sharable-segments/add-sharable-segment.png)
 
-Assign a name to the segment and define its environment scope. A sharable segment can be used from one environment within a project to multiple environments in other projects. You can also add whole organization as the scope of the sharable segment.
+Assign a name to the segment and define its environment scope. A shareable segment can be used from one environment within a project to multiple environments in other projects. You can also add whole organization as the scope of the shareable segment.
 
 ![Define environment scope](../best-practice/assets/using-feature-flags-across-the-entire-organization-sharable-segments/define-sharable-segement-scope.png)
 
 Click **OK** and **Save**.
 
-### Add global users to the sharable segment
+### Add global users to the shareable segment
 
-There is no difference between the [configuration of a normal segment](https://docs.featbit.co/feature-flags/users-and-user-segments/user-segments) and a sharable segment. You can add global users to a sharable segment in the same way you add environment-specific end-users to a normal segment. Additionally, you can define rules for a sharable segment just as you would for a normal segment.
+There is no difference between the [configuration of a normal segment](https://docs.featbit.co/feature-flags/users-and-user-segments/user-segments) and a shareable segment. You can add global users to a shareable segment in the same way you add environment-specific end-users to a normal segment. Additionally, you can define rules for a shareable segment just as you would for a normal segment.
 
-![Configure sharable segment](../best-practice/assets/using-feature-flags-across-the-entire-organization-sharable-segments/configure-sharable-segment.png)
+![Configure shareable segment](../best-practice/assets/using-feature-flags-across-the-entire-organization-sharable-segments/configure-sharable-segment.png)
 
 
-### Use the sharable segment in a feature flag
+### Use the shareable segment in a feature flag
 
-In a feature flag configuration page, you can select the sharable segment as the target audience in a targeting rule. It has no difference from selecting a normal segment.
+In a feature flag configuration page, you can select the shareable segment as the target audience in a targeting rule. It has no difference from selecting a normal segment.
 
-![Add sharable segment in feature flag](../best-practice/assets/using-feature-flags-across-the-entire-organization-sharable-segments/add-sharable-segment-in-feature-flag.png)
+![Add shareable segment in feature flag](../best-practice/assets/using-feature-flags-across-the-entire-organization-sharable-segments/add-sharable-segment-in-feature-flag.png)
 
 
 ## Conclusion
 
-FeatBit allows you to define global users and sharable segments in the workspace level, and use them in feature flags across the entire organization. This practice helps you manage feature flags more efficiently and ensures that the same feature is tested and released across different projects and environments.
+FeatBit allows you to define global users and shareable segments in the workspace level, and use them in feature flags across the entire organization. This practice helps you manage feature flags more efficiently and ensures that the same feature is tested and released across different projects and environments.
 
 That's all for this practice. If you have any questions, please feel free to contact us.
 
