@@ -30,8 +30,6 @@ Your team may set a fixed deployment day for each iteration. They merge some fea
 
 It's considered a compromised way to keep the release safe. But the bugs will still happen in production, and unmerged feature branches can become long-lived feature branches. There's a better way to make the delivery safer and allow you to ship more features in an iteration.
 
- more features in an iteration.
-
 Why do we need to break the big story into small pieces? Because one big story can introduce a long-lived feature branch that carries a high risk of code conflict, review, and testing. If you have many of them, it will be a nightmare for the team. You may think it's technically difficult to break the big story into small pieces and merge them into the main code without breaking the existing service. [Feature flags](https://www.featbit.co) can help you to solve this problem.
 
 ## Feature flags solve the problem
