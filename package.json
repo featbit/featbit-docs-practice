@@ -17,6 +17,9 @@
     "url": "https://github.com/featbit/featbit-docs-practice/issues"
   },
   "homepage": "https://github.com/featbit/featbit-docs-practice#readme",
+  "engines": {
+    "node": ">=24.x"
+  },
   "dependencies": {
     "next": "^13.0.6",
     "nextra": "latest",
